@@ -13,15 +13,26 @@ function createWindow() {
     }
   });
 
-  //mainWindow.loadURL('http://localhost:4200'); // URL du serveur Angular
-  //mainWindow.loadFile('dist/electron-angular-app/browser/index.html');
+  // Récupérer les arguments en ligne de commande
+  const args = process.argv.slice(2);
+  //console.log("Arguments passés :", args);
+
+  // Passer les arguments à Angular via l'URL
+  const params = new URLSearchParams();
+  args.forEach(arg => {
+      const [key, value] = arg.split('=');
+      params.append(key, value);
+  });
+
+  console.log("Arguments passés :", params);
+
   // Vérifier si nous sommes en mode développement
   const isDev = process.env.NODE_ENV === 'development';
 
   if (isDev) {
     // En développement, charger depuis le serveur Angular
-    mainWindow.loadURL('http://localhost:4200');
-   //mainWindow.webContents.openDevTools();
+    mainWindow.loadURL(`http://localhost:4200?${params.toString()}`);
+    mainWindow.webContents.openDevTools();
   } else {
     // En production, charger le fichier buildé
     mainWindow.loadFile('dist/electron-angular-app-2/browser/index.html');

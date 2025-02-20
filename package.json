@@ -5,7 +5,7 @@
   "scripts": {
     "start:ng": "ng serve",
     "start:electron": "electron .",
-    "start:dev": "NODE_ENV=development concurrently -s first \"npm run start:ng\" \"wait-on http://localhost:4200 && npm run start:electron\"",    
+    "start:dev": "NODE_ENV=development concurrently -s first \"npm run start:ng\" \"wait-on http://localhost:4200 && electron . $npm_config_args\"",    
     "start:prod": "cross-env NODE_ENV=production electron ."
   },
   "private": true,
