@@ -34,8 +34,10 @@ function createWindow() {
     mainWindow.loadURL(`http://localhost:4200?${params.toString()}`);
     mainWindow.webContents.openDevTools();
   } else {
-    // En production, charger le fichier buildé
-    mainWindow.loadFile('dist/electron-angular-app-2/browser/index.html');
+    // En production, charger le fichier buildé avec les paramètres
+    mainWindow.loadFile('dist/electron-angular-app-2/browser/index.html', {
+      search: params.toString()
+    });
   }
 
   mainWindow.on('closed', () => {
